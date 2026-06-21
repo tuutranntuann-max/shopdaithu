@@ -4,319 +4,91 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GAMESPHERE VIỆT NAM</title>
-    <!-- Thêm font chữ cho hiện đại -->
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
         /* CSS RESET & GENERAL */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Roboto', sans-serif;
-        }
-        body {
-            background-color: #ebf3fc;
-            color: #333;
-        }
-        a {
-            text-decoration: none;
-            color: inherit;
-        }
-
-        /* CONTAINER */
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 15px;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Roboto', sans-serif; }
+        body { background-color: #ebf3fc; color: #333; padding-bottom: 60px; }
+        a { text-decoration: none; color: inherit; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 15px; }
 
         /* HEADER */
-        header {
-            background: #fff;
-            padding: 15px 0;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-        }
-        .header-wrap {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .logo {
-            font-size: 28px;
-            font-weight: 700;
-            color: #004b93;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        .logo span {
-            color: #d9383a;
-        }
-        .search-auth {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-        .search-box input {
-            padding: 8px 15px;
-            border: 1px solid #ccc;
-            border-radius: 20px;
-            outline: none;
-            width: 200px;
-        }
-        .btn-auth {
-            background: #004b93;
-            color: #fff;
-            padding: 8px 18px;
-            border-radius: 20px;
-            border: none;
-            cursor: pointer;
-            font-weight: 500;
-        }
-        .btn-auth:hover {
-            background: #00366b;
-        }
-        
-        /* USER STATUS (Khi đã đăng nhập) */
-        .user-status {
-            display: none;
-            align-items: center;
-            gap: 10px;
-            font-weight: 500;
-        }
-        .btn-logout {
-            background: #d9383a;
-            color: white;
-            border: none;
-            padding: 5px 10px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 12px;
-        }
+        header { background: #fff; padding: 15px 0; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+        .header-wrap { display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-size: 28px; font-weight: 700; color: #004b93; display: flex; align-items: center; gap: 10px; }
+        .logo span { color: #d9383a; }
+        .search-auth { display: flex; align-items: center; gap: 15px; }
+        .search-box input { padding: 8px 15px; border: 1px solid #ccc; border-radius: 20px; outline: none; width: 200px; }
+        .btn-auth { background: #004b93; color: #fff; padding: 8px 18px; border-radius: 20px; border: none; cursor: pointer; font-weight: 500; }
+        .btn-auth:hover { background: #00366b; }
+        .user-status { display: none; align-items: center; gap: 10px; font-weight: 500; }
+        .btn-logout { background: #d9383a; color: white; border: none; padding: 5px 10px; border-radius: 5px; cursor: pointer; font-size: 12px; }
 
         /* NAVIGATION BAR */
-        nav {
-            background: #1b74e4;
-        }
-        .nav-menu {
-            display: flex;
-            list-style: none;
-        }
-        .nav-menu li a {
-            display: block;
-            padding: 12px 20px;
-            color: #fff;
-            font-weight: 500;
-            font-size: 15px;
-            transition: 0.3s;
-        }
-        .nav-menu li.active a, .nav-menu li a:hover {
-            background: #e9711c;
-        }
+        nav { background: #1b74e4; }
+        .nav-menu { display: flex; list-style: none; flex-wrap: wrap; }
+        .nav-menu li a { display: block; padding: 12px 20px; color: #fff; font-weight: 500; font-size: 15px; transition: 0.3s; }
+        .nav-menu li.active a, .nav-menu li a:hover { background: #e9711c; }
+
+        /* PANEL QUẢN TRỊ ADMIN (Ẩn mặc định) */
+        #adminPanel { display: none; background: #fff; border: 2px dashed #d9383a; padding: 20px; margin-top: 20px; border-radius: 10px; }
+        #adminPanel h3 { color: #d9383a; margin-bottom: 15px; }
+        .admin-box { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 15px; }
+        .admin-card { background: #f9f9f9; padding: 15px; border-radius: 8px; border: 1px solid #ddd; }
+        .admin-card h4 { margin-bottom: 10px; color: #004b93; }
+        .admin-input { width: 100%; padding: 8px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 4px; }
+        .btn-admin { background: #d9383a; color: white; border: none; padding: 8px 15px; border-radius: 4px; cursor: pointer; font-weight: bold; }
+        .btn-admin:hover { background: #b8282a; }
 
         /* MAIN CONTENT LAYOUT */
-        .main-content {
-            margin-top: 25px;
-            margin-bottom: 40px;
-        }
+        .main-content { margin-top: 25px; }
+        .hero-banner { background: linear-gradient(135deg, #071124, #132a52); border-radius: 15px; padding: 35px; color: #fff; margin-bottom: 30px; border: 2px solid #3b82f6; box-shadow: 0 0 15px rgba(59, 130, 246, 0.3); }
+        .hero-tag { color: #3b82f6; font-weight: bold; text-transform: uppercase; margin-bottom: 10px; }
+        .hero-title { font-size: 32px; max-width: 600px; line-height: 1.3; margin-bottom: 15px; }
 
-        /* HERO SLIDER BANNER */
-        .hero-banner {
-            background: linear-gradient(135deg, #071124, #132a52);
-            border-radius: 15px;
-            padding: 35px;
-            color: #fff;
-            position: relative;
-            margin-bottom: 30px;
-            border: 2px solid #3b82f6;
-            box-shadow: 0 0 15px rgba(59, 130, 246, 0.3);
-        }
-        .hero-tag {
-            color: #3b82f6;
-            font-weight: bold;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 10px;
-        }
-        .hero-title {
-            font-size: 32px;
-            max-width: 500px;
-            line-height: 1.3;
-            margin-bottom: 15px;
-        }
+        /* SHOP ACC SECTION */
+        .shop-section { margin-bottom: 40px; background: #fff; padding: 20px; border-radius: 15px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
+        .section-title { font-size: 20px; font-weight: 700; color: #042954; border-left: 4px solid #1b74e4; padding-left: 10px; margin-bottom: 20px; text-transform: uppercase; }
+        .acc-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 20px; }
+        .acc-card { background: #fff; border: 1px solid #eee; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 5px rgba(0,0,0,0.05); transition: 0.3s; position: relative; }
+        .acc-card:hover { transform: translateY(-3px); box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+        .acc-img { width: 100%; height: 160px; object-fit: cover; background: #ddd; }
+        .acc-details { padding: 15px; }
+        .acc-title { font-size: 15px; font-weight: bold; margin-bottom: 8px; color: #333; }
+        .acc-info { font-size: 13px; color: #666; margin-bottom: 10px; line-height: 1.4; }
+        .acc-price { font-size: 18px; font-weight: 700; color: #e9711c; }
+        .btn-buy { display: block; text-align: center; background: #1b74e4; color: white; padding: 8px; margin-top: 10px; border-radius: 4px; font-weight: 500; font-size: 14px; }
+        .btn-delete-acc { position: absolute; top: 10px; right: 10px; background: rgba(217, 56, 58, 0.9); color: white; border: none; padding: 4px 8px; border-radius: 4px; cursor: pointer; font-size: 11px; display: none; }
 
         /* GRID TIỂU ĐIỂM / TIN TỨC */
-        .grid-sections {
-            display: grid;
-            grid-template-columns: 1fr 2fr;
-            gap: 25px;
-        }
-
-        .section-title {
-            font-size: 18px;
-            font-weight: 700;
-            color: #042954;
-            border-left: 4px solid #1b74e4;
-            padding-left: 10px;
-            margin-bottom: 15px;
-            text-transform: uppercase;
-        }
-
-        /* Cột trái: Tin mới nhất */
-        .news-list {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
-        .news-item {
-            background: #fff;
-            padding: 10px;
-            border-radius: 8px;
-            display: flex;
-            gap: 15px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.03);
-        }
-        .news-thumb {
-            width: 90px;
-            height: 70px;
-            background: #ccc;
-            border-radius: 5px;
-            flex-shrink: 0;
-        }
-        .news-info h4 {
-            font-size: 14px;
-            line-height: 1.4;
-            color: #222;
-        }
-
-        /* Cột phải: Tiêu điểm Grid */
-        .featured-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 15px;
-        }
-        .featured-item {
-            background: #fff;
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.03);
-        }
-        .featured-img {
-            height: 120px;
-            background: #ddd;
-        }
-        .featured-meta {
-            padding: 10px;
-        }
-        .featured-meta span {
-            font-size: 11px;
-            color: #e9711c;
-            font-weight: bold;
-            text-transform: uppercase;
-        }
-        .featured-meta h5 {
-            font-size: 13px;
-            margin-top: 5px;
-            color: #333;
-        }
+        .grid-sections { display: grid; grid-template-columns: 1fr 2fr; gap: 25px; margin-bottom: 40px; }
+        .news-list { display: flex; flex-direction: column; gap: 15px; }
+        .news-item { background: #fff; padding: 10px; border-radius: 8px; display: flex; gap: 15px; box-shadow: 0 2px 5px rgba(0,0,0,0.03); }
+        .news-thumb { width: 90px; height: 70px; background: #34495e; border-radius: 5px; flex-shrink: 0; }
+        .featured-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; }
+        .featured-item { background: #fff; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 5px rgba(0,0,0,0.03); }
+        .featured-img { height: 120px; background: #27ae60; }
+        .featured-meta { padding: 10px; }
+        .featured-meta span { font-size: 11px; color: #e9711c; font-weight: bold; text-transform: uppercase; }
+        .featured-meta h5 { font-size: 13px; margin-top: 5px; color: #333; }
 
         /* FOOTER */
-        footer {
-            background: #fff;
-            text-align: center;
-            padding: 20px 0;
-            border-top: 1px solid #ddd;
-            font-size: 13px;
-            color: #666;
-        }
+        footer { background: #fff; text-align: center; padding: 20px 0; border-top: 1px solid #ddd; font-size: 13px; color: #666; }
 
-        /* --- MODAL HỆ THỐNG TÀI KHOẢN --- */
-        .modal-overlay {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.6);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 999;
-            opacity: 0;
-            pointer-events: none;
-            transition: 0.3s ease;
-        }
-        .modal-overlay.active {
-            opacity: 1;
-            pointer-events: auto;
-        }
-        .auth-card {
-            background: #fff;
-            padding: 30px;
-            border-radius: 12px;
-            width: 100%;
-            max-width: 400px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
-            position: relative;
-        }
-        .close-modal {
-            position: absolute;
-            top: 15px; right: 15px;
-            font-size: 22px;
-            cursor: pointer;
-            color: #999;
-        }
-        .auth-tabs {
-            display: flex;
-            margin-bottom: 20px;
-            border-bottom: 2px solid #eee;
-        }
-        .tab {
-            flex: 1;
-            text-align: center;
-            padding: 10px;
-            cursor: pointer;
-            font-weight: 500;
-            color: #777;
-        }
-        .tab.active {
-            color: #1b74e4;
-            border-bottom: 2px solid #1b74e4;
-            margin-bottom: -2px;
-        }
-        .auth-form {
-            display: none;
-        }
-        .auth-form.active {
-            display: block;
-        }
-        .form-group {
-            margin-bottom: 15px;
-        }
-        .form-group label {
-            display: block;
-            margin-bottom: 5px;
-            font-size: 13px;
-            font-weight: 500;
-        }
-        .form-group input {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 6px;
-            outline: none;
-        }
-        .btn-submit {
-            width: 100%;
-            padding: 12px;
-            background: #1b74e4;
-            color: #fff;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            font-weight: bold;
-            margin-top: 10px;
-        }
-        .btn-submit:hover {
-            background: #155cb8;
-        }
+        /* MODAL */
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.6); display: flex; justify-content: center; align-items: center; z-index: 999; opacity: 0; pointer-events: none; transition: 0.3s ease; }
+        .modal-overlay.active { opacity: 1; pointer-events: auto; }
+        .auth-card { background: #fff; padding: 30px; border-radius: 12px; width: 100%; max-width: 400px; position: relative; }
+        .close-modal { position: absolute; top: 15px; right: 15px; font-size: 22px; cursor: pointer; color: #999; }
+        .auth-tabs { display: flex; margin-bottom: 20px; border-bottom: 2px solid #eee; }
+        .tab { flex: 1; text-align: center; padding: 10px; cursor: pointer; font-weight: 500; color: #777; }
+        .tab.active { color: #1b74e4; border-bottom: 2px solid #1b74e4; margin-bottom: -2px; }
+        .auth-form { display: none; }
+        .auth-form.active { display: block; }
+        .form-group { margin-bottom: 15px; }
+        .form-group label { display: block; margin-bottom: 5px; font-size: 13px; font-weight: 500; }
+        .form-group input { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 6px; outline: none; }
+        .btn-submit { width: 100%; padding: 12px; background: #1b74e4; color: #fff; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; }
     </style>
 </head>
 <body>
@@ -326,15 +98,12 @@
         <div class="container header-wrap">
             <div class="logo">GAMESPHERE <span>🇻🇳</span></div>
             <div class="search-auth">
-                <div class="search-box">
-                    <input type="text" placeholder="Sản phẩm...">
-                </div>
-                <!-- Khối nút Đăng nhập / Trạng thái User -->
+                <div class="search-box"><input type="text" placeholder="Sản phẩm..."></div>
                 <div id="authBox">
                     <button class="btn-auth" onclick="toggleModal(true)">Đăng Nhập / Đăng Ký</button>
                 </div>
                 <div id="userBox" class="user-status">
-                    Chào, <span id="usernameDisplay" style="color: #1b74e4;">User</span>!
+                    Chào Admin: <span id="usernameDisplay" style="color: #d9383a; font-weight: bold;">User</span>!
                     <button class="btn-logout" onclick="logout()">Thoát</button>
                 </div>
             </div>
@@ -344,232 +113,275 @@
     <!-- NAVIGATION MENU -->
     <nav>
         <div class="container">
-            <ul class="nav-menu">
-                <li class="active"><a href="#">TRANG CHỦ</a></li>
-                <li><a href="#">E-SPORTS</a></li>
-                <li><a href="#">GAME PC</a></li>
-                <li><a href="#">MOBILE GAME</a></li>
-                <li><a href="#">CÔNG NGHỆ</a></li>
-                <li><a href="#">CỘNG ĐỒNG</a></li>
-                <li><a href="#">THƯ VIỆN</a></li>
-                <li><a href="#">SỰ KIỆN</a></li>
+            <ul class="nav-menu" id="menuContainer">
+                <!-- Menu được sinh tự động bằng JS -->
             </ul>
         </div>
     </nav>
 
     <!-- MAIN BODY -->
     <main class="container main-content">
+
+        <!-- PANEL QUẢN TRỊ ADMIN (Chỉ hiển thị khi đăng nhập tài khoản 'admin') -->
+        <section id="adminPanel">
+            <h3>🛠️ HỆ THỐNG QUẢN TRỊ ADMIN</h3>
+            <div class="admin-box">
+                <!-- Đổi chữ tiêu đề chính -->
+                <div class="admin-card">
+                    <h4>1. Chỉnh Sửa Tiêu Đề Banner</h4>
+                    <input type="text" id="inputHeroTitle" class="admin-input" placeholder="Nhập tiêu đề mới">
+                    <button class="btn-admin" onclick="saveHeroTitle()">Cập nhật tiêu đề</button>
+                </div>
+                <!-- Thêm thanh công cụ -->
+                <div class="admin-card">
+                    <h4>2. Thêm Menu (Thanh Công Cụ)</h4>
+                    <input type="text" id="inputMenuName" class="admin-input" placeholder="Tên Menu (Ví dụ: SHOP LIÊN QUÂN)">
+                    <input type="text" id="inputMenuLink" class="admin-input" placeholder="Đường dẫn (Hoặc điền #)" value="#">
+                    <button class="btn-admin" onclick="addMenu()">Thêm thanh công cụ mới</button>
+                    <button class="btn-admin" style="background: #777;" onclick="resetMenu()">Reset mặc định</button>
+                </div>
+            </div>
+
+            <!-- Đăng Acc vào Shop -->
+            <div class="admin-card">
+                <h4>3. Đăng Tài Khoản Vào Cửa Hàng (Shop Acc)</h4>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                    <input type="text" id="accTitle" class="admin-input" placeholder="Tiêu đề Acc (Ví dụ: Acc Liên Quân Rank Thách Đấu)">
+                    <input type="text" id="accPrice" class="admin-input" placeholder="Giá bán (Ví dụ: 250.000đ)">
+                    <input type="text" id="accImg" class="admin-input" placeholder="Link ảnh minh họa (Dán link ảnh từ mạng hoặc ảnh mẫu)">
+                    <input type="text" id="accInfo" class="admin-input" placeholder="Thông tin mô tả ngắn (Tướng, Trang phục...)">
+                </div>
+                <button class="btn-admin" style="background:#27ae60;" onclick="uploadAcc()">Đăng bán Acc</button>
+            </div>
+        </section>
         
         <!-- BANNER TIN CHÍNH -->
         <section class="hero-banner">
             <div class="hero-tag">Tin Chính</div>
-            <h1 class="hero-title">LIÊN QUÂN MOBILE: THẾ TRẬN MỚI CỦA GIẢI ĐẤU QUỐC TẾ AWC 2026</h1>
+            <h1 class="hero-title" id="heroTitleTxt">LIÊN QUÂN MOBILE: THẾ TRẬN MỚI CỦA GIẢI ĐẤU QUỐC TẾ AWC 2026</h1>
             <p>Khám phá những thay đổi cốt lõi sắp được áp dụng tại giải đấu lớn nhất hành tinh.</p>
+        </section>
+
+        <!-- KHU VỰC SHOP ACC -->
+        <section class="shop-section">
+            <h3 class="section-title">Cửa Hàng Bán Acc Game</h3>
+            <div class="acc-grid" id="shopAccContainer">
+                <!-- Tài khoản game sẽ tự động hiện ở đây -->
+            </div>
         </section>
 
         <!-- NỘI DUNG TẤM LƯỚI TIN TỨC -->
         <div class="grid-sections">
-            
-            <!-- Cột 1: Tin Mới Nhất -->
             <section>
                 <h3 class="section-title">Tin Mới Nhất</h3>
                 <div class="news-list">
-                    <div class="news-item">
-                        <div class="news-thumb" style="background: #34495e;"></div>
-                        <div class="news-info">
-                            <h4>Game PC Mới: Chi tiết cập nhật 'Hỏa Ngục' của Cyberpunk</h4>
-                        </div>
-                    </div>
-                    <div class="news-item">
-                        <div class="news-thumb" style="background: #9b59b6;"></div>
-                        <div class="news-info">
-                            <h4>Giải đấu Valorant: Đội tuyển Việt Nam thắng trận mở màn</h4>
-                        </div>
-                    </div>
-                    <div class="news-item">
-                        <div class="news-thumb" style="background: #e67e22;"></div>
-                        <div class="news-info">
-                            <h4>Ra mắt Mobile Game: Tải ngay 'Huyền Thoại Kiếm Hiệp'</h4>
-                        </div>
-                    </div>
+                    <div class="news-item"><div class="news-thumb"></div><div class="news-info"><h4>Game PC Mới: Chi tiết cập nhật 'Hỏa Ngục' của Cyberpunk</h4></div></div>
+                    <div class="news-item"><div class="news-thumb" style="background:#9b59b6"></div><div class="news-info"><h4>Giải đấu Valorant: Đội tuyển Việt Nam thắng trận mở màn</h4></div></div>
                 </div>
             </section>
-
-            <!-- Cột 2: Tiêu Điểm -->
             <section>
                 <h3 class="section-title">Tiêu Điểm</h3>
                 <div class="featured-grid">
-                    <div class="featured-item">
-                        <div class="featured-img" style="background: #27ae60;"></div>
-                        <div class="featured-meta">
-                            <span>Tổng hợp E-Sports</span>
-                            <h5>Điểm tin giải đấu Đấu Trường Danh Vọng</h5>
-                        </div>
-                    </div>
-                    <div class="featured-item">
-                        <div class="featured-img" style="background: #2980b9;"></div>
-                        <div class="featured-meta">
-                            <span>Review Game</span>
-                            <h5>Đánh giá chi tiết Elden Ring: Shadow of the Erdtree</h5>
-                        </div>
-                    </div>
-                    <div class="featured-item">
-                        <div class="featured-img" style="background: #f1c40f;"></div>
-                        <div class="featured-meta">
-                            <span>Mẹo Game</span>
-                            <h5>Cẩm nang leo hạng Liên Quân cho tân thủ</h5>
-                        </div>
-                    </div>
+                    <div class="featured-item"><div class="featured-img"></div><div class="featured-meta"><span>Tổng hợp E-Sports</span><h5>Điểm tin giải đấu Đấu Trường Danh Vọng</h5></div></div>
+                    <div class="featured-item"><div class="featured-img" style="background:#2980b9"></div><div class="featured-meta"><span>Review Game</span><h5>Đánh giá chi tiết Elden Ring</h5></div></div>
                 </div>
             </section>
-
         </div>
     </main>
 
-    <!-- FOOTER -->
     <footer>
         <p><strong>GAMESPHERE VIỆT NAM</strong></p>
-        <p>© 2026. All Rights Reserved. Liên hệ | Giới thiệu</p>
+        <p>© 2026. All Rights Reserved.</p>
     </footer>
 
-
-    <!-- --- MODAL ĐĂNG NHẬP / ĐĂNG KÝ --- -->
+    <!-- MODAL ĐĂNG NHẬP -->
     <div class="modal-overlay" id="authModal">
         <div class="auth-card">
             <span class="close-modal" onclick="toggleModal(false)">&times;</span>
-            
             <div class="auth-tabs">
                 <div class="tab active" id="tabLogin" onclick="switchTab('login')">Đăng Nhập</div>
                 <div class="tab" id="tabRegister" onclick="switchTab('register')">Đăng Ký</div>
             </div>
-
-            <!-- Form Đăng Nhập -->
             <form id="formLogin" class="auth-form active" onsubmit="handleAuth(event, 'login')">
-                <div class="form-group">
-                    <label>Tài khoản hoặc Email</label>
-                    <input type="text" id="loginUser" required placeholder="Nhập tài khoản">
-                </div>
-                <div class="form-group">
-                    <label>Mật khẩu</label>
-                    <input type="password" id="loginPass" required placeholder="Nhập mật khẩu">
-                </div>
+                <div class="form-group"><label>Tài khoản</label><input type="text" id="loginUser" required placeholder="admin"></div>
+                <div class="form-group"><label>Mật khẩu</label><input type="password" id="loginPass" required placeholder="123"></div>
                 <button type="submit" class="btn-submit">Đăng Nhập</button>
             </form>
-
-            <!-- Form Đăng Ký -->
             <form id="formRegister" class="auth-form" onsubmit="handleAuth(event, 'register')">
-                <div class="form-group">
-                    <label>Tên tài khoản mới</label>
-                    <input type="text" id="regUser" required placeholder="Tạo tên tài khoản">
-                </div>
-                <div class="form-group">
-                    <label>Email</label>
-                    <input type="email" id="regEmail" required placeholder="example@gmail.com">
-                </div>
-                <div class="form-group">
-                    <label>Mật khẩu</label>
-                    <input type="password" id="regPass" required placeholder="Tối thiểu 6 ký tự">
-                </div>
-                <button type="submit" class="btn-submit">Tạo Tài Khoản</button>
+                <div class="form-group"><label>Tên tài khoản</label><input type="text" id="regUser" required></div>
+                <div class="form-group"><label>Mật khẩu</label><input type="password" id="regPass" required></div>
+                <button type="submit" class="btn-submit">Đăng Ký</button>
             </form>
         </div>
     </div>
 
-    <!-- SCRIPT XỬ LÝ HỆ THỐNG TÀI KHOẢN -->
+    <!-- JAVASCRIPT LOGIC XỬ LÝ -->
     <script>
-        // Bật/tắt cửa sổ đăng nhập
-        function toggleModal(show) {
-            const modal = document.getElementById('authModal');
-            if(show) {
-                modal.classList.add('active');
-            } else {
-                modal.classList.remove('active');
-            }
-        }
+        // Danh sách menu mặc định
+        const defaultMenus = ["TRANG CHỦ", "E-SPORTS", "GAME PC", "MOBILE GAME", "CÔNG NGHỆ", "SHOP ACC"];
+        
+        // Danh sách Acc mặc định ban đầu để shop không bị trống
+        const defaultAccs = [
+            { title: "Acc Liên Quân Thách Đấu S1", price: "500.000đ", info: "Full Tướng, 150 Trang phục bậc SSS cực vip", img: "https://picsum.photos/300/160?random=1" },
+            { title: "Acc Đột Kích Vip Giá Rẻ", price: "120.000đ", info: "Có 5 VIP, Barrett Born Beast, M4A1 VIP", img: "https://picsum.photos/300/160?random=2" }
+        ];
 
-        // Chuyển đổi qua lại giữa Tab Đăng nhập & Đăng ký
-        function switchTab(type) {
-            const tabLogin = document.getElementById('tabLogin');
-            const tabRegister = document.getElementById('tabRegister');
-            const formLogin = document.getElementById('formLogin');
-            const formRegister = document.getElementById('formRegister');
-
-            if(type === 'login') {
-                tabLogin.classList.add('active');
-                tabRegister.classList.remove('active');
-                formLogin.classList.add('active');
-                formRegister.classList.remove('active');
-            } else {
-                tabRegister.classList.add('active');
-                tabLogin.classList.remove('active');
-                formRegister.classList.add('active');
-                formLogin.classList.remove('active');
-            }
-        }
-
-        // Xử lý Logic Tài khoản (Sử dụng bộ nhớ trình duyệt localStorage)
-        function handleAuth(event, type) {
-            event.preventDefault(); // Chặn tải lại trang
-
-            if (type === 'register') {
-                const username = document.getElementById('regUser').value.trim();
-                const email = document.getElementById('regEmail').value.trim();
-                const password = document.getElementById('regPass').value;
-
-                // Lưu thông tin user vào localStorage
-                localStorage.setItem('db_username', username);
-                localStorage.setItem('db_password', password);
-
-                alert('🎉 Đăng ký tài khoản thành công! Hãy đăng nhập nhé.');
-                switchTab('login');
-            } 
+        // Khởi động trang web
+        window.onload = function() {
+            renderMenu();
+            renderShop();
+            checkLoginStatus();
             
-            else if (type === 'login') {
-                const userIn = document.getElementById('loginUser').value.trim();
-                const passIn = document.getElementById('loginPass').value;
+            // Tải tiêu đề đã lưu (nếu có)
+            const savedTitle = localStorage.getItem('hero_title');
+            if(savedTitle) document.getElementById('heroTitleTxt').innerText = savedTitle;
+        }
 
-                const savedUser = localStorage.getItem('db_username');
-                const savedPass = localStorage.getItem('db_password');
+        function toggleModal(show) { document.getElementById('authModal').classList.toggle('active', show); }
+        function switchTab(type) {
+            document.getElementById('tabLogin').classList.toggle('active', type === 'login');
+            document.getElementById('tabRegister').classList.toggle('active', type === 'register');
+            document.getElementById('formLogin').classList.toggle('active', type === 'login');
+            document.getElementById('formRegister').classList.toggle('active', type === 'register');
+        }
 
-                // Kiểm tra tài khoản (Có thể test nhanh bằng tài khoản 'admin' mật khẩu '123')
-                if ((userIn === savedUser && passIn === savedPass) || (userIn === 'admin' && passIn === '123')) {
-                    alert('🔑 Đăng nhập thành công!');
-                    
-                    // Lưu trạng thái phiên đăng nhập hiện tại
-                    localStorage.setItem('isLoggedIn', 'true');
-                    localStorage.setItem('currentUser', userIn);
-                    
-                    updateUserUI(userIn);
+        // Xử lý Tài khoản Admin & User
+        function handleAuth(event, type) {
+            event.preventDefault();
+            if (type === 'login') {
+                const user = document.getElementById('loginUser').value.trim();
+                const pass = document.getElementById('loginPass').value;
+
+                if (user === 'admin' && pass === '123') {
+                    alert('🔑 Chào Quản Trị Viên tối cao!');
+                    localStorage.setItem('role', 'admin');
+                    localStorage.setItem('username', 'Admin');
+                    checkLoginStatus();
                     toggleModal(false);
                 } else {
-                    alert('❌ Sai tài khoản hoặc mật khẩu! (Hoặc thử TK mặc định: admin / MK: 123)');
+                    alert('Đăng nhập với tư cách Thành Viên (Chỉ Admin mới có quyền sửa đổi).');
+                    localStorage.setItem('role', 'user');
+                    localStorage.setItem('username', user);
+                    checkLoginStatus();
+                    toggleModal(false);
                 }
             }
         }
 
-        // Cập nhật giao diện khi đăng nhập xong
-        function updateUserUI(username) {
-            document.getElementById('authBox').style.display = 'none';
-            document.getElementById('userBox').style.display = 'flex';
-            document.getElementById('usernameDisplay').innerText = username;
-        }
-
-        // Đăng xuất
-        function logout() {
-            localStorage.removeItem('isLoggedIn');
-            localStorage.removeItem('currentUser');
-            document.getElementById('authBox').style.display = 'block';
-            document.getElementById('userBox').style.display = 'none';
-            alert('Đã đăng xuất tài khoản.');
-        }
-
-        // Tự động kiểm tra trạng thái đăng nhập khi tải lại trang
-        window.onload = function() {
-            const isLoggedIn = localStorage.getItem('isLoggedIn');
-            const currentUser = localStorage.getItem('currentUser');
-            if(isLoggedIn === 'true' && currentUser) {
-                updateUserUI(currentUser);
+        function checkLoginStatus() {
+            const role = localStorage.getItem('role');
+            const username = localStorage.getItem('username');
+            if (role) {
+                document.getElementById('authBox').style.display = 'none';
+                document.getElementById('userBox').style.display = 'flex';
+                document.getElementById('usernameDisplay').innerText = username;
+                
+                if (role === 'admin') {
+                    document.getElementById('adminPanel').style.display = 'block';
+                    showDeleteButtons(true);
+                }
             }
+        }
+
+        function logout() {
+            localStorage.clear();
+            location.reload();
+        }
+
+        /* ----- CHỨC NĂNG CHỈNH SỬA CỦA ADMIN ----- */
+
+        // 1. Lưu tiêu đề chính
+        function saveHeroTitle() {
+            const newTitle = document.getElementById('inputHeroTitle').value.trim();
+            if(newTitle) {
+                localStorage.setItem('hero_title', newTitle);
+                document.getElementById('heroTitleTxt').innerText = newTitle;
+                alert('Đã đổi tiêu đề banner chính!');
+            }
+        }
+
+        // 2. Thêm/Quản lý thanh công cụ
+        function renderMenu() {
+            let menus = JSON.parse(localStorage.getItem('menus')) || defaultMenus;
+            const container = document.getElementById('menuContainer');
+            container.innerHTML = '';
+            menus.forEach((m, idx) => {
+                container.innerHTML += `<li class="${idx===0?'active':''}"><a href="#">${m}</a></li>`;
+            });
+        }
+        function addMenu() {
+            const name = document.getElementById('inputMenuName').value.trim();
+            if(name) {
+                let menus = JSON.parse(localStorage.getItem('menus')) || defaultMenus;
+                menus.push(name.toUpperCase());
+                localStorage.setItem('menus', JSON.stringify(menus));
+                renderMenu();
+                document.getElementById('inputMenuName').value = '';
+                alert('Đã thêm lối tắt chức năng mới lên thanh công cụ!');
+            }
+        }
+        function resetMenu() {
+            localStorage.removeItem('menus');
+            renderMenu();
+        }
+
+        // 3. Quản lý Thêm/Xóa sản phẩm Shop Acc
+        function renderShop() {
+            let accs = JSON.parse(localStorage.getItem('acc_list')) || defaultAccs;
+            const container = document.getElementById('shopAccContainer');
+            container.innerHTML = '';
+            
+            accs.forEach((acc, index) => {
+                container.innerHTML += `
+                    <div class="acc-card">
+                        <button class="btn-delete-acc" onclick="deleteAcc(${index})">Xóa X</button>
+                        <img class="acc-img" src="${acc.img || 'https://picsum.photos/300/160'}" alt="Ảnh sản phẩm">
+                        <div class="acc-details">
+                            <div class="acc-title">${acc.title}</div>
+                            <div class="acc-info">${acc.info}</div>
+                            <div class="acc-price">${acc.price}</div>
+                            <a href="#" class="btn-buy">Mua Ngay</a>
+                        </div>
+                    </div>
+                `;
+            });
+            // Giữ hiển thị nút xóa nếu admin đang đăng nhập
+            if(localStorage.getItem('role') === 'admin') showDeleteButtons(true);
+        }
+
+        function uploadAcc() {
+            const title = document.getElementById('accTitle').value.trim();
+            const price = document.getElementById('accPrice').value.trim();
+            const img = document.getElementById('accImg').value.trim();
+            const info = document.getElementById('accInfo').value.trim();
+
+            if(!title || !price) { alert('Vui lòng điền ít nhất Tiêu đề và Giá acc!'); return; }
+
+            let accs = JSON.parse(localStorage.getItem('acc_list')) || defaultAccs;
+            accs.push({ title, price, img, info });
+            localStorage.setItem('acc_list', JSON.stringify(accs));
+            
+            renderShop();
+            // Clear các ô nhập liệu sau khi đăng
+            document.getElementById('accTitle').value = '';
+            document.getElementById('accPrice').value = '';
+            document.getElementById('accImg').value = '';
+            document.getElementById('accInfo').value = '';
+            alert('🎉 Đăng bán tài khoản game thành công vào Shop!');
+        }
+
+        function deleteAcc(index) {
+            if(confirm('Bạn có chắc muốn xóa tài khoản này khỏi shop?')) {
+                let accs = JSON.parse(localStorage.getItem('acc_list')) || defaultAccs;
+                accs.splice(index, 1);
+                localStorage.setItem('acc_list', JSON.stringify(accs));
+                renderShop();
+            }
+        }
+
+        function showDeleteButtons(show) {
+            const buttons = document.querySelectorAll('.btn-delete-acc');
+            buttons.forEach(btn => btn.style.display = show ? 'block' : 'none');
         }
     </script>
 </body>
